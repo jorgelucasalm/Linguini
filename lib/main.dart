@@ -28,19 +28,18 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFEAF5F1),
       body: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(18),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Padding(
-                    padding: EdgeInsets.all(30)), //Espaçamento do topo
-
-                //LEMBRETE: Adicionar botão de voltar
-
-                TextButton(
+                const BackButton(
+                  color: Color(0xFF695876),
+                  onPressed: null,
+                ),
+                OutlinedButton(
                     onPressed: null,
                     style: OutlinedButton.styleFrom(
                       fixedSize: const Size(100, 32),
@@ -63,17 +62,17 @@ class _RegisterPageState extends State<RegisterPage> {
               ],
             ),
             const Padding(
-              padding: EdgeInsets.all(12),
+              padding: EdgeInsets.all(32),
               child: Text(
                 "Cadastro",
                 style: TextStyle(
                   fontSize: 24,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   color: Color(0xff422956),
                 ),
               ),
             ),
-            const SizedBox(height: 32),
+            
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -158,7 +157,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ],
             ),
-          
             const SizedBox(height: 32),
             TextButton(
                 onPressed: null,
@@ -179,7 +177,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       fontWeight: FontWeight.w700,
                       color: Color(0xff422956)),
                 )),
-
             const SizedBox(height: 16),
             OutlinedButton(
               onPressed: null,
