@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './pages/register_page.dart';
+import 'package:linguini/src/pages/register_page.dart';
 
 void main() {
   runApp(const MyApp());
