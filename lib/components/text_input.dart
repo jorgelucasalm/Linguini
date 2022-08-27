@@ -11,12 +11,14 @@ class TextInput extends StatelessWidget {
       width: 296,
       height: 48,
       child: TextFormField(
+        // textAlignVertical: TextAlignVertical.bottom,
+        style: const TextStyle(
+          color: Color(0xFF695876),
+          fontFamily: 'Poppins'
+        ),
         decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           hintText: text,
-          labelStyle: const TextStyle(
-            fontSize: 50,
-            color: Color(0xFF695876),
-          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(32),
           ),
