@@ -12,7 +12,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   get text => null;
-  
+
   IconData? get search => null;
 
   @override
@@ -31,7 +31,7 @@ class _SearchPageState extends State<SearchPage> {
                   padding: const EdgeInsets.all(32),
                   child: Column(children: const [
                     Image(
-                      image: AssetImage('../assets/images/logo.png'),
+                      image: AssetImage('assets/images/logo.png'),
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -53,25 +53,22 @@ class _SearchPageState extends State<SearchPage> {
                       child: TextFormField(
                         // textAlignVertical: TextAlignVertical.bottom,
                         style: const TextStyle(
-                          color: Color(0xFF695876), 
-                          fontFamily: 'Poppins'
-                        ),
-                        
+                            color: Color(0xFF695876), fontFamily: 'Poppins'),
+
                         decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 24),
                           hintText: 'Busca',
                           suffixIcon: const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 24),
                             child: Icon(
-                              Icons.search, 
+                              Icons.search,
                               color: Color(0xFF695876),
                             ),
                           ),
-
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32),
                           ),
-                          
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32),
                             borderSide: const BorderSide(
@@ -82,7 +79,7 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       ),
                     )),
-                const StyledButton(text: 'Buscar'),
+                const StyledButton(text: 'Buscar', page: 2),
                 const SizedBox(height: 16),
               ],
             ),

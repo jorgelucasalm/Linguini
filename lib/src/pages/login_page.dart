@@ -49,16 +49,17 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     )),
-              TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.black,
-                textStyle: const TextStyle(fontSize: 16),
-                  padding: EdgeInsets.only(bottom:24),
-              ),
-              onPressed: () {},
-              child: const Text('Esqueci minha senha',)
-              ),
-                const StyledButton(text: 'Login'),
+                TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.black,
+                      textStyle: const TextStyle(fontSize: 16),
+                      padding: EdgeInsets.only(bottom: 24),
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      'Esqueci minha senha',
+                    )),
+                const StyledButton(text: 'Login', page: 3),
                 const SizedBox(height: 16),
                 OutlinedButton(
                   onPressed: null,
@@ -86,7 +87,6 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 }

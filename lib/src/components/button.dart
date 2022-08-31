@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'package:linguini/src/pages/register_page.dart';
+import 'package:linguini/src/pages/login_page.dart';
+import 'package:linguini/src/pages/search_page.dart';
+
 class StyledButton extends StatelessWidget {
   final String text;
+  final int page;
   final void Function()? onPressed;
 
-  const StyledButton({Key? key, required this.text, this.onPressed})
+  const StyledButton(
+      {Key? key, required this.text, required this.page, this.onPressed})
       : super(key: key);
 
   @override
@@ -27,7 +33,17 @@ class StyledButton extends StatelessWidget {
             bottom: 0,
             right: 0,
             child: OutlinedButton(
-              onPressed: onPressed,
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  if (page == 1) {
+                    return const SearchPage(title: 'Flutter Demo Home Page');
+                  } else if (page == 2) {
+                    return const LoginPage(title: 'Flutter Demo Home Page');
+                  } else {
+                    return const RegisterPage(title: 'Flutter Demo Home Page');
+                  }
+                }));
+              },
               style: OutlinedButton.styleFrom(
                 fixedSize: const Size(246, 48),
                 shape: RoundedRectangleBorder(

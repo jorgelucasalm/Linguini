@@ -51,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ],
                       ),
                     )),
-                const StyledButton(text: 'Próximo'),
+                const StyledButton(text: 'Próximo', page: 1),
                 const SizedBox(height: 16),
                 OutlinedButton(
                   onPressed: null,
