@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:linguini/src/components/header.dart';
-import 'package:linguini/src/components/text_input.dart';
-import 'package:linguini/src/components/button.dart';
+import 'package:linguini/components/header.dart';
+import 'package:linguini/components/text_input.dart';
+import 'package:linguini/components/button.dart';
 
 class RegisterPage extends StatefulWidget {
   final String title;
