@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: const Text(
-                    'Não possuo conta',
+                    'Já possuo conta',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
