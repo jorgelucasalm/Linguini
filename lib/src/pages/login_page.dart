@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
                   textButton: 'Criar',
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(75),
+                  padding: EdgeInsets.all(32),
                   child: Text(
                     "Entrar",
                     style: TextStyle(
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
+                    padding: const EdgeInsets.only(bottom: 32),
                     child: SizedBox(
                       height: 120,
                       child: Column(
@@ -49,15 +49,6 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     )),
-              TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.black,
-                textStyle: const TextStyle(fontSize: 16),
-                  padding: EdgeInsets.only(bottom:24),
-              ),
-              onPressed: () {},
-              child: const Text('Esqueci minha senha',)
-              ),
                 const StyledButton(text: 'Login'),
                 const SizedBox(height: 16),
                 OutlinedButton(
@@ -86,7 +77,6 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 }
