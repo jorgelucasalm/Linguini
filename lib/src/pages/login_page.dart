@@ -4,8 +4,8 @@ import 'package:linguini/src/components/text_input.dart';
 import 'package:linguini/src/components/button.dart';
 
 class LoginPage extends StatefulWidget {
-  final String title;
-  const LoginPage({Key? key, required this.title}) : super(key: key);
+  final String? title;
+  const LoginPage({Key? key, this.title}) : super(key: key);
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -22,8 +22,10 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Header(
+                Header(
                   textButton: 'Criar',
+                  onPressedMainButton: () =>
+                      Navigator.pushNamed(context, '/register'),
                 ),
                 const Padding(
                   padding: EdgeInsets.all(75),
@@ -49,19 +51,21 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     )),
-              TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.black,
-                textStyle: const TextStyle(fontSize: 16),
-                  padding: EdgeInsets.only(bottom:24),
-              ),
-              onPressed: () {},
-              child: const Text('Esqueci minha senha',)
-              ),
-                const StyledButton(text: 'Login'),
+                TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.black,
+                      textStyle: const TextStyle(fontSize: 16),
+                      padding: const EdgeInsets.only(bottom: 24),
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      'Esqueci minha senha',
+                    )),
+                StyledButton(text: 'Login', onPressed: () => Navigator.pushNamed(context, '/search'),),
                 const SizedBox(height: 16),
                 OutlinedButton(
-                  onPressed: null,
+                  onPressed: () =>
+                      Navigator.pushReplacementNamed(context, '/register'),
                   style: OutlinedButton.styleFrom(
                     fixedSize: const Size(246, 48),
                     shape: RoundedRectangleBorder(
@@ -86,7 +90,6 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 }
