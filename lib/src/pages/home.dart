@@ -38,7 +38,32 @@ class _Home extends State<Home> {
                 duration: const Duration(milliseconds: 1000),
                 child: Image.asset('assets/images/logo.png'),
               ),
-              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: const [
+                    Text(
+                      'Linguini',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Poppins',
+                        color: Color(0xff422956),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Um novo jeito de cozinhar.',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Poppins',
+                        color: Color(0xff422956),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               const CircularProgressIndicator(
                 strokeWidth: 2,
                 color: Colors.blue,
