@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
                   textButton: 'Criar',
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(75),
+                  padding: EdgeInsets.all(32),
                   child: Text(
                     "Entrar",
                     style: TextStyle(
@@ -51,12 +51,13 @@ class _LoginPageState extends State<LoginPage> {
                     )),
               TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.black,
-                textStyle: const TextStyle(fontSize: 16),
-                  padding: EdgeInsets.only(bottom:24),
+                primary: Color(0xff422956),
+                textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  padding: EdgeInsets.only(bottom:26, right:120),
               ),
               onPressed: () {},
-              child: const Text('Esqueci minha senha',)
+              child: const Text('Esqueci minha senha',
+                  )
               ),
                 const StyledButton(text: 'Login'),
                 const SizedBox(height: 16),
