@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linguini/src/pages/restriction_page.dart';
 import 'package:linguini/src/pages/register_page.dart';
 import 'package:linguini/src/pages/login_page.dart';
 
