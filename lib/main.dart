@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linguini/src/pages/search_page.dart';
+import 'package:linguini/src/pages/register_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: SearchPage(title: 'Flutter Demo Home Page'),
+      home: RegisterPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
