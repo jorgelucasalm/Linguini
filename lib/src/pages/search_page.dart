@@ -14,7 +14,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   get text => null;
-
   IconData? get search => null;
 
   @override
