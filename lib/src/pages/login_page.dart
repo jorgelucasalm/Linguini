@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.pushNamed(context, '/register'),
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(75),
+                  padding: EdgeInsets.all(32),
                   child: Text(
                     "Entrar",
                     style: TextStyle(
@@ -62,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                       'Esqueci minha senha',
                     )),
                 StyledButton(text: 'Login', onPressed: () => Navigator.pushNamed(context, '/search'),),
+
                 const SizedBox(height: 16),
                 OutlinedButton(
                   onPressed: () =>
