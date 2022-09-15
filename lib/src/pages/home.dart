@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/button.dart';
 import 'package:linguini/src/components/restriction_button.dart';
@@ -13,19 +16,32 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   final List<bool> optionsRestrictition = [false, false, false, false];
   bool? noRestriction;
-  bool _visible = true;
+  late Timer _timer;
+  int _counter = 10;
+
+  void timer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_counter > 0) {
+          _counter--;
+        } else {
+          _timer.cancel();
+        }
+      });
+    });
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (_counter == 0) {
+        _counter = -1;
+        Navigator.pushNamed(context, '/login');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    timer();
     return Scaffold(
         backgroundColor: const Color(0xFFEAF5F1),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _visible = !_visible;
-            });
-          },
-        ),
         body: Container(
           padding: const EdgeInsets.all(18),
           width: double.infinity,
@@ -41,7 +57,7 @@ class _Home extends State<Home> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
-                  children: const [
+                  children: const <Widget>[
                     Text(
                       'Linguini',
                       style: TextStyle(

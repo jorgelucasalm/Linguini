@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:linguini/src/components/header.dart';
-// import 'package:linguini/src/components/text_input.dart';
 import 'package:linguini/src/components/button.dart';
 
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:linguini/src/pages/data.dart';
+
 class SearchPage extends StatefulWidget {
-  final String title;
-  const SearchPage({Key? key, required this.title}) : super(key: key);
+  final String? title;
+  const SearchPage({Key? key, this.title}) : super(key: key);
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
   get text => null;
-  
   IconData? get search => null;
 
   @override
@@ -31,7 +32,7 @@ class _SearchPageState extends State<SearchPage> {
                   padding: const EdgeInsets.all(32),
                   child: Column(children: const [
                     Image(
-                      image: AssetImage('../assets/images/logo.png'),
+                      image: AssetImage('assets/images/logo.png'),
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -45,43 +46,88 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ]),
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 32),
-                    child: SizedBox(
-                      width: 296,
-                      height: 240,
-                      child: TextFormField(
-                        // textAlignVertical: TextAlignVertical.bottom,
-                        style: const TextStyle(
-                          color: Color(0xFF695876), 
-                          fontFamily: 'Poppins'
-                        ),
-                        
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                          hintText: 'Busca',
-                          suffixIcon: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 24),
-                            child: Icon(
-                              Icons.search, 
-                              color: Color(0xFF695876),
-                            ),
-                          ),
 
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                          
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32),
-                            borderSide: const BorderSide(
-                              color: Color(0xFF695876),
-                              width: 2,
-                            ),
-                          ),
+                //SearchBar
+                SizedBox(
+                    height: 40,
+                    width: 296,
+                    child: TypeAheadField(
+                      noItemsFoundBuilder: (context) => const SizedBox(
+                        height: 50,
+                        child: Center(
+                          child: Text('No Item Found'),
                         ),
                       ),
+
+                      suggestionsBoxDecoration: const SuggestionsBoxDecoration(
+                          color: Colors.white,
+                          elevation: 4.0,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          )),
+
+                      debounceDuration: const Duration(milliseconds: 400),
+                      textFieldConfiguration: TextFieldConfiguration(
+                          decoration: InputDecoration(
+                              focusedBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide: BorderSide(
+                                  color: Color(0xFF695876),
+                                  width: 2,
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0)),
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide: BorderSide(
+                                  color: Color(0xFF695876),
+                                  width: 1,
+                                ),
+                              ),
+                              hintText: "Busca",
+                              contentPadding:
+                                  const EdgeInsets.only(top: 8, left: 24),
+                              hintStyle: const TextStyle(
+                                  color: Color(0xFF695876), fontSize: 14),
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.search,
+                                  color: Color(0xFF695876),
+                                ),
+                              ),
+                              fillColor: Colors.white,
+                              filled: true)),
+                      suggestionsCallback: (value) {
+                        return StateService.getSuggestions(value);
+                      },
+                      itemBuilder: (context, String suggestion) {
+                        return Row(
+                          children: [
+                            const SizedBox(width: 4),
+                            const SizedBox(width: 2),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  suggestion,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                      onSuggestionSelected:
+                          (String suggestion) {}, //construir função
                     )),
+
+                const SizedBox(height: 200),
                 const StyledButton(text: 'Buscar'),
                 const SizedBox(height: 16),
               ],
