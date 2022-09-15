@@ -4,8 +4,8 @@ import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/button.dart';
 
 class SearchPage extends StatefulWidget {
-  final String title;
-  const SearchPage({Key? key, required this.title}) : super(key: key);
+  final String? title;
+  const SearchPage({Key? key, this.title}) : super(key: key);
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
@@ -31,7 +31,7 @@ class _SearchPageState extends State<SearchPage> {
                   padding: const EdgeInsets.all(32),
                   child: Column(children: const [
                     Image(
-                      image: AssetImage('../assets/images/logo.png'),
+                      image: AssetImage('assets/images/logo.png'),
                     ),
                     SizedBox(height: 16),
                     Text(
