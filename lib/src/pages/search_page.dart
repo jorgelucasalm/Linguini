@@ -6,8 +6,8 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:linguini/src/pages/data.dart';
 
 class SearchPage extends StatefulWidget {
-  final String title;
-  const SearchPage({Key? key, required this.title}) : super(key: key);
+  final String? title;
+  const SearchPage({Key? key, this.title}) : super(key: key);
   @override
   State<SearchPage> createState() => _SearchPageState();
 }

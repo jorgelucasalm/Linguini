@@ -4,8 +4,8 @@ import 'package:linguini/src/components/text_input.dart';
 import 'package:linguini/src/components/button.dart';
 
 class RegisterPage extends StatefulWidget {
-  final String title;
-  const RegisterPage({Key? key, required this.title}) : super(key: key);
+  final String? title;
+  const RegisterPage({Key? key, this.title}) : super(key: key);
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
@@ -22,9 +22,12 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Header(
-                  textButton: 'Login',
-                ),
+                Header(
+                    textButton: 'Login',
+                    onPressedBackButton: () =>
+                        Navigator.pushNamed(context, '/'),
+                    onPressedMainButton: () =>
+                        Navigator.pushNamed(context, '/')),
                 const Padding(
                   padding: EdgeInsets.all(32),
                   child: Text(
@@ -51,10 +54,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         ],
                       ),
                     )),
-                const StyledButton(text: 'Próximo'),
+                StyledButton(
+                  text: 'Próximo',
+                  onPressed: () =>
+                      Navigator.pushNamed(context, '/register/restriction'),
+                ),
                 const SizedBox(height: 16),
                 OutlinedButton(
-                  onPressed: null,
+                  onPressed: () => Navigator.pushNamed(context, '/'),
                   style: OutlinedButton.styleFrom(
                     fixedSize: const Size(246, 48),
                     shape: RoundedRectangleBorder(
