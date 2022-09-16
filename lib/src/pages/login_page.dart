@@ -11,6 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,13 +43,17 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                     padding: const EdgeInsets.only(bottom: 15),
                     child: SizedBox(
-                      height: 120,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          TextInput(text: 'User'),
-                          TextInput(text: 'Senha'),
-                        ],
+                      // height: 160,
+                      child: Form(
+                        key: formkey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            TextInput(text: 'User'),
+                            SizedBox(height: 10),
+                            TextInput(text: 'Senha'),
+                          ],
+                        ),
                       ),
                     )),
                 TextButton(
@@ -61,8 +66,14 @@ class _LoginPageState extends State<LoginPage> {
                     child: const Text(
                       'Esqueci minha senha',
                     )),
-                StyledButton(text: 'Login', onPressed: () => Navigator.pushNamed(context, '/search'),),
-
+                StyledButton(
+                    text: 'Login',
+                    onPressed: () => {
+                          if (formkey.currentState!.validate())
+                            {
+                              Navigator.pushNamed(context, '/search'),
+                            }
+                        }),
                 const SizedBox(height: 16),
                 OutlinedButton(
                   onPressed: () =>

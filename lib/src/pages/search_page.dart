@@ -29,23 +29,23 @@ class _SearchPageState extends State<SearchPage> {
               children: [
                 const Header(),
                 Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(children: const [
-                      Image(
-                        image: AssetImage('../assets/images/logo.png'),
+                  padding: const EdgeInsets.all(32),
+                  child: Column(children: const [
+                    Image(
+                      image: AssetImage('assets/images/logo.png'),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      "Um novo jeito de cozinhar.",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins',
+                        color: Color(0xff422956),
                       ),
-                      SizedBox(height: 16),
-                      Text(
-                        "Um novo jeito de cozinhar.",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Poppins',
-                          color: Color(0xff422956),
-                        ),
-                      ),
-                    ]),
-                  ),  
+                    ),
+                  ]),
+                ),
 
                 //SearchBar
                 SizedBox(
@@ -65,50 +65,43 @@ class _SearchPageState extends State<SearchPage> {
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10),
-                          )
-                      ),
+                          )),
 
                       debounceDuration: const Duration(milliseconds: 400),
                       textFieldConfiguration: TextFieldConfiguration(
-                        decoration: InputDecoration(
-                          focusedBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(32)),
-                              borderSide:  BorderSide(
-                                color: Color(0xFF695876),
-                                width: 2,
+                          decoration: InputDecoration(
+                              focusedBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide: BorderSide(
+                                  color: Color(0xFF695876),
+                                  width: 2,
+                                ),
                               ),
-                          ),
-
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0)
-                          ),
-
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(32)),
-                            borderSide:  BorderSide(
-                              color: Color(0xFF695876),
-                              width: 1,
-                            ),
-                          ),
-
-                          hintText: "Busca",
-                          contentPadding: const EdgeInsets.only(top: 8, left: 24),
-                          hintStyle: const TextStyle(
-                            color: Color(0xFF695876), 
-                            fontSize: 14
-                          ),
-
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.search, 
-                              color: Color(0xFF695876),
-                            ),
-                          ),
-
-                          fillColor: Colors.white, filled: true 
-                        )  
-                      ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0)),
+                              enabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide: BorderSide(
+                                  color: Color(0xFF695876),
+                                  width: 1,
+                                ),
+                              ),
+                              hintText: "Busca",
+                              contentPadding:
+                                  const EdgeInsets.only(top: 8, left: 24),
+                              hintStyle: const TextStyle(
+                                  color: Color(0xFF695876), fontSize: 14),
+                              suffixIcon: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.search,
+                                  color: Color(0xFF695876),
+                                ),
+                              ),
+                              fillColor: Colors.white,
+                              filled: true)),
                       suggestionsCallback: (value) {
                         return StateService.getSuggestions(value);
                       },
@@ -130,9 +123,9 @@ class _SearchPageState extends State<SearchPage> {
                           ],
                         );
                       },
-                      onSuggestionSelected: (String suggestion) {  }, //construir função
-                    )
-                  ),  
+                      onSuggestionSelected:
+                          (String suggestion) {}, //construir função
+                    )),
 
                 const SizedBox(height: 200),
                 const StyledButton(text: 'Buscar'),
@@ -140,7 +133,6 @@ class _SearchPageState extends State<SearchPage> {
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 }
