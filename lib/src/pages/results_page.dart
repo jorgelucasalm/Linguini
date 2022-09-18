@@ -85,13 +85,42 @@ class _ResultsPageState extends State<ResultsPage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                ),
-
  
+                                child: Wrap(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Image(
+                                          image: AssetImage('../assets/images/cover.png'),
+                                          width: 150,
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                                          child: Wrap(
+                                            direction: Axis.vertical,
+                                            spacing: 10,
+                                            children: const [
+                                              Text(
+                                                "Cozinha",
+                                                style: TextStyle(fontFamily: "Poppins",fontWeight: FontWeight.w500,),
+                                              ),
+                                              Text(
+                                                "Dieta",
+                                                style: TextStyle(fontFamily: "Poppins",fontWeight: FontWeight.w500,),
+                                              ),
+                                              Text(
+                                                "Tempo",
+                                                style: TextStyle(fontFamily: "Poppins",fontWeight: FontWeight.w500,),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+
                               )
                             ],
                           ),
