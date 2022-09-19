@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/ingredient.dart';
+import 'package:linguini/src/components/recipes.dart';
 
 class ResultsPage extends StatefulWidget {
   final String title;
@@ -72,6 +73,7 @@ class _ResultsPageState extends State<ResultsPage> {
                           ),
                         ),
                         Card(
+                          clipBehavior: Clip.antiAlias,
                           child: Column(
                             children: [
                               const ListTile(
@@ -85,42 +87,11 @@ class _ResultsPageState extends State<ResultsPage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
- 
-                                child: Wrap(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Image(
-                                          image: AssetImage('../assets/images/cover.png'),
-                                          width: 150,
-                                          fit: BoxFit.fitWidth,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                                          child: Wrap(
-                                            direction: Axis.vertical,
-                                            spacing: 10,
-                                            children: const [
-                                              Text(
-                                                "Cozinha",
-                                                style: TextStyle(fontFamily: "Poppins",fontWeight: FontWeight.w500,),
-                                              ),
-                                              Text(
-                                                "Dieta",
-                                                style: TextStyle(fontFamily: "Poppins",fontWeight: FontWeight.w500,),
-                                              ),
-                                              Text(
-                                                "Tempo",
-                                                style: TextStyle(fontFamily: "Poppins",fontWeight: FontWeight.w500,),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                child: RecipeItem(
+                                  cousine: 'Tailandesa',
+                                  diet: 'Vegana',
+                                  prep_time: "15 min",
                                 )
-
                               )
                             ],
                           ),
