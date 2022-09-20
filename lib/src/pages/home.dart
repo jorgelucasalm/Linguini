@@ -32,7 +32,7 @@ class _Home extends State<Home> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       if (_counter == 0) {
         _counter = -1;
-        Navigator.pushNamed(context, '/login');
+        Navigator.pushReplacementNamed(context, '/login');
       }
     });
   }
