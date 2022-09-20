@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/text_input.dart';
 import 'package:linguini/src/components/button.dart';
+import 'package:linguini/api.dart';
 
 class LoginPage extends StatefulWidget {
   final String? title;
@@ -12,6 +13,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final formkey = GlobalKey<FormState>();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,10 +52,13 @@ class _LoginPageState extends State<LoginPage> {
                         key: formkey,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            TextInput(text: 'User'),
-                            SizedBox(height: 10),
-                            TextInput(text: 'Senha'),
+                          children: [
+                            TextInput(
+                              text: 'User',
+                              controller: usernameController,
+                            ),
+                            const SizedBox(height: 10),
+                            TextInput(text: 'Senha', controller: passwordController,),
                           ],
                         ),
                       ),
@@ -68,12 +75,41 @@ class _LoginPageState extends State<LoginPage> {
                     )),
                 StyledButton(
                     text: 'Login',
-                    onPressed: () => {
-                          if (formkey.currentState!.validate())
-                            {
-                              Navigator.pushNamed(context, '/search'),
-                            }
-                        }),
+                    onPressed: () async {
+                      if (formkey.currentState!.validate()) {
+                        Map<String, dynamic> result =
+                            await Api.login(usernameController.text, passwordController.text);
+                        if ((result['status'] == 400 || result['status'] == 401) && mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(result['message']),
+                            behavior: SnackBarBehavior.floating,
+                            duration: const Duration(seconds: 1),
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(24),
+                            // ),
+                            margin: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).size.height - 100,
+                                right: 20,
+                                left: 20),
+                            backgroundColor: Colors.red,
+                          ));
+                        } else if (result['status'] == 200 && mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(result['message']),
+                            duration: const Duration(seconds: 1),
+                            behavior: SnackBarBehavior.floating,
+                            margin: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).size.height - 100,
+                                right: 20,
+                                left: 20),
+                            backgroundColor: Colors.green,
+                          ));
+                          Navigator.pushNamed(context, '/search');
+                        }
+                      }
+                    }),
                 const SizedBox(height: 16),
                 OutlinedButton(
                   onPressed: () =>

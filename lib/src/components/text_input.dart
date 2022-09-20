@@ -4,8 +4,9 @@ class TextInput extends StatelessWidget {
   final String? text;
   final String? email;
   final String? emailV;
+  final TextEditingController? controller;
 
-  const TextInput({Key? key, this.text, this.email, this.emailV})
+  const TextInput({Key? key, this.text, this.email, this.emailV, this.controller})
       : super(key: key);
 
   @override
@@ -14,6 +15,7 @@ class TextInput extends StatelessWidget {
       width: 296,
       // height: 48,
       child: TextFormField(
+        controller: controller,
         // textAlignVertical: TextAlignVertical.bottom,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style: const TextStyle(color: Color(0xFF695876), fontFamily: 'Poppins'),
