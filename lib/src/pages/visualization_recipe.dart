@@ -3,6 +3,7 @@ import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/button.dart';
 import 'package:linguini/src/components/sliver_image.dart';
 import 'package:linguini/src/components/cards_informativo.dart';
+import 'package:linguini/src/components/list_ingredientes.dart';
 
 
 
@@ -58,6 +59,7 @@ class _VisualizationRecipeState extends State<VisualizationRecipe> {
                       )
                   )
               ),
+              ListIngredientes(),
               Container(
                   padding: EdgeInsets.only(top: 15),
                   alignment: Alignment.centerLeft,
