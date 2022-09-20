@@ -30,9 +30,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 Header(
                     textButton: 'Login',
                     onPressedBackButton: () =>
-                        Navigator.pushNamed(context, '/'),
+                        Navigator.pushNamed(context, '/login'),
                     onPressedMainButton: () =>
-                        Navigator.pushNamed(context, '/')),
+                        Navigator.pushNamed(context, '/login')),
                 const Padding(
                   padding: EdgeInsets.all(32),
                   child: Text(
