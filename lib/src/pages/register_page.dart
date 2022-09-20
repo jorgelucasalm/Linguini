@@ -5,12 +5,17 @@ import 'package:linguini/src/components/button.dart';
 
 class RegisterPage extends StatefulWidget {
   final String? title;
-  const RegisterPage({Key? key, this.title}) : super(key: key);
+  final String? contentUser;
+
+  const RegisterPage({Key? key, this.title, this.contentUser})
+      : super(key: key);
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,22 +48,31 @@ class _RegisterPageState extends State<RegisterPage> {
                 Padding(
                     padding: const EdgeInsets.only(bottom: 32),
                     child: SizedBox(
-                      height: 240,
+                        // height: 240,
+                        child: Form(
+                      key: formkey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           TextInput(text: 'User'),
+                          SizedBox(height: 10),
                           TextInput(text: 'E-mail'),
+                          SizedBox(height: 10),
                           TextInput(text: 'Confirmação de e-mail'),
+                          SizedBox(height: 10),
                           TextInput(text: 'Senha'),
                         ],
                       ),
-                    )),
+                    ))),
                 StyledButton(
-                  text: 'Próximo',
-                  onPressed: () =>
-                      Navigator.pushNamed(context, '/register/restriction'),
-                ),
+                    text: 'Próximo',
+                    onPressed: () => {
+                          if (formkey.currentState!.validate())
+                            {
+                              Navigator.pushNamed(
+                                  context, '/register/restriction'),
+                            }
+                        }),
                 const SizedBox(height: 16),
                 OutlinedButton(
                   onPressed: () => Navigator.pushNamed(context, '/'),

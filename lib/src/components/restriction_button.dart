@@ -71,8 +71,8 @@ class _RestrictionButtonState extends State<RestrictionButton> {
                   side: BorderSide(
                       width: 2,
                       color: widget.optionsRestrictition[widget.index]
-                          ? const Color(0xffAE97C0)
-                          : Colors.black)),
+                          ? Colors.black
+                          : const Color(0xffAE97C0))),
               child: Image.asset("assets/images/${widget.imgSrc}"),
             ),
             Text(
