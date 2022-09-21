@@ -1,7 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:linguini/api.dart';
 import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/ingredient.dart';
 import 'package:linguini/src/components/recipes.dart';
+import 'package:linguini/src/pages/search_page.dart';
+import 'package:linguini/src/pages/visualization_recipe.dart';
 
 class ResultsPage extends StatefulWidget {
   final List<String>? ingredients;
@@ -15,11 +21,34 @@ class _ResultsPageState extends State<ResultsPage> {
   get text => null;
   IconData? get search => null;
   List<String> ingredients = [];
+  List<dynamic> recipes = [];
+  late Timer _timer;
+  int _counter = 7;
 
   @override
   void initState() {
     super.initState();
     ingredients = widget.ingredients!;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_counter > 0) {
+          _counter--;
+        } else {
+          _timer.cancel();
+        }
+      });
+    });
+
+    () async {
+      recipes = await Api.listRecipes(ingredients);
+      print(recipes);
+    }();
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (_counter == 0) {
+        _counter = -1;
+      }
+    });
   }
 
   @override
@@ -33,7 +62,12 @@ class _ResultsPageState extends State<ResultsPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Header(),
+                Header(
+                  backButton: true,
+                  onPressedBackButton: () {
+                    Navigator.pop(context);
+                  },
+                ),
                 Container(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                   alignment: Alignment.topLeft,
@@ -61,13 +95,11 @@ class _ResultsPageState extends State<ResultsPage> {
                                 alignment: WrapAlignment.start,
                                 spacing: 8,
                                 runSpacing: 10,
-                                children: const [
-                                  IngredientButton(text: 'Ovo'),
-                                  IngredientButton(text: 'Alho Poró'),
-                                  IngredientButton(text: 'Uva galática'),
-                                  IngredientButton(text: 'Alho Poró'),
-                                  IngredientButton(text: 'Uva galática'),
-                                ],
+                                children: ingredients
+                                    .map(
+                                      (item) => IngredientButton(text: item),
+                                    )
+                                    .toList(),
                               )),
                         ),
                         const Text(
@@ -80,29 +112,52 @@ class _ResultsPageState extends State<ResultsPage> {
                             height: 4,
                           ),
                         ),
-                        Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text(
-                                  ingredients[0],
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: RecipeItem(
-                                    cousine: 'Tailandesa',
-                                    diet: 'Vegana',
-                                    prep_time: "15 min",
-                                  ))
-                            ],
-                          ),
-                        ),
+                        if (_counter < 1)
+                          ListView.builder(
+                              itemCount: recipes.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                VisualizationRecipe(
+                                              recipe: recipes[index]['id'],
+                                            ),
+                                          ));
+                                    },
+                                    child: Card(
+                                      clipBehavior: Clip.antiAlias,
+                                      child: Column(
+                                        children: [
+                                          ListTile(
+                                            title: Text(
+                                              recipes[index]['recipe_title']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              child: RecipeItem(
+                                                cousine: recipes[index]
+                                                        ['cuisine']
+                                                    .toString(),
+                                                diet: recipes[index]['diet']
+                                                    .toString(),
+                                                prep_time: recipes[index]
+                                                        ['prep_time']
+                                                    .toString(),
+                                              ))
+                                        ],
+                                      ),
+                                    ),
+                                  )),
                       ]),
                 )
               ],

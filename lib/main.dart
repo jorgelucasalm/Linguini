@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:linguini/src/pages/restriction_page.dart';
 import 'package:linguini/src/pages/register_page.dart';
 import 'package:linguini/src/pages/login_page.dart';
+import 'package:linguini/src/pages/visualization_recipe.dart';
 import 'package:linguini/src/pages/home.dart';
 import 'package:linguini/src/pages/search_page.dart';
 import 'package:linguini/src/pages/results_page.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/register/restriction': (context) => const RestrictionPage(),
         '/search': (context) => const SearchPage(),
         '/results': (context) => const ResultsPage(),
+        '/recipe': (context) => const VisualizationRecipe(),
       },
     );
   }

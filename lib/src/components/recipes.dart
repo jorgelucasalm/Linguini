@@ -25,38 +25,43 @@ class RecipeItem extends StatelessWidget {
           Row(
             children: [
               const Image(
-                image: AssetImage('../assets/images/cover.png'),
+                image: AssetImage('assets/images/cover.png'),
                 width: 150,
                 fit: BoxFit.fitWidth,
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                child: Wrap(
-                  direction: Axis.vertical,
-                  spacing: 10,
-                  children: [
-                    Text(
-                      cousine,
-                      style: const TextStyle(
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w500,
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                  child: Wrap(
+                    direction: Axis.vertical,
+                    spacing: 10,
+                    children: [
+                      Text(
+                        cousine,
+                        style: const TextStyle(
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w500,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    Text(
-                      diet,
-                      style: const TextStyle(
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w500,
+                      Text(
+                        diet,
+                        style: const TextStyle(
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w500,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    Text(
-                      prep_time,
-                      style: const TextStyle(
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w500,
+                      Text(
+                        prep_time + ' min',
+                        style: const TextStyle(
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w500,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -65,4 +70,4 @@ class RecipeItem extends StatelessWidget {
       ),
     );
   }
-} 
+}
