@@ -6,7 +6,8 @@ class TextInput extends StatelessWidget {
   final String? emailV;
   final TextEditingController? controller;
 
-  const TextInput({Key? key, this.text, this.email, this.emailV, this.controller})
+  const TextInput(
+      {Key? key, this.text, this.email, this.emailV, this.controller})
       : super(key: key);
 
   @override
@@ -18,6 +19,7 @@ class TextInput extends StatelessWidget {
         controller: controller,
         // textAlignVertical: TextAlignVertical.bottom,
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        obscureText: text == 'Senha' ? true : false,
         style: const TextStyle(color: Color(0xFF695876), fontFamily: 'Poppins'),
         onChanged: (value) => {
           // if (text == 'E-mail') {email = value, print('email')},

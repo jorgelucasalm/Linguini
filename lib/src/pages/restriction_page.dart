@@ -83,7 +83,7 @@ class _RestrictionPageState extends State<RestrictionPage> {
                   )),
               StyledButton(
                 text: 'Criar Conta',
-                onPressed: () => Navigator.pushNamed(context, '/'),
+                onPressed: () => Navigator.pushNamed(context, '/search'),
               )
             ],
           ),

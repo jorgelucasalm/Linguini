@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
                 Header(
                   textButton: 'Criar',
                   onPressedMainButton: () =>
-                      Navigator.pushNamed(context, '/register'),
+                      Navigator.pushReplacementNamed(context, '/register'),
                 ),
                 const Padding(
                   padding: EdgeInsets.all(32),
@@ -58,7 +58,10 @@ class _LoginPageState extends State<LoginPage> {
                               controller: usernameController,
                             ),
                             const SizedBox(height: 10),
-                            TextInput(text: 'Senha', controller: passwordController,),
+                            TextInput(
+                              text: 'Senha',
+                              controller: passwordController,
+                            ),
                           ],
                         ),
                       ),
@@ -77,9 +80,11 @@ class _LoginPageState extends State<LoginPage> {
                     text: 'Login',
                     onPressed: () async {
                       if (formkey.currentState!.validate()) {
-                        Map<String, dynamic> result =
-                            await Api.login(usernameController.text, passwordController.text);
-                        if ((result['status'] == 400 || result['status'] == 401) && mounted) {
+                        Map<String, dynamic> result = await Api.login(
+                            usernameController.text, passwordController.text);
+                        if ((result['status'] == 400 ||
+                                result['status'] == 401) &&
+                            mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(result['message']),
                             behavior: SnackBarBehavior.floating,
