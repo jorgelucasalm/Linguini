@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterPage(),
         '/register/restriction': (context) => const RestrictionPage(),
         '/search': (context) => const SearchPage(),
-        '/results': (context) => const ResultsPage(title: 'Comida vegana'),
+        '/results': (context) => const ResultsPage(),
       },
     );
   }

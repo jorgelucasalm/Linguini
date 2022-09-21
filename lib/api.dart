@@ -35,4 +35,18 @@ class Api {
 
     return {'status': response.statusCode, 'message': responseJson['message']};
   }
+
+  static Future<List<String>> getIngredients() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/ingredients'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    List<dynamic> responseJson = jsonDecode(response.body);
+    List<String> responseString = responseJson.map((e) => e.toString()).toList();
+
+    return responseString;
+  }
 }
