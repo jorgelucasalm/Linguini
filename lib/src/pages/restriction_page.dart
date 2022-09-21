@@ -13,7 +13,7 @@ class RestrictionPage extends StatefulWidget {
 class _RestrictionPageState extends State<RestrictionPage> {
   final List<bool> optionsRestrictition = [false, false, false, false];
   bool? noRestriction;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +81,10 @@ class _RestrictionPageState extends State<RestrictionPage> {
                       ),
                     ),
                   )),
-              const StyledButton(text: 'Criar Conta')
+              StyledButton(
+                text: 'Criar Conta',
+                onPressed: () => Navigator.pushNamed(context, '/search'),
+              )
             ],
           ),
         ));

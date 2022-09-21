@@ -17,12 +17,12 @@ class Header extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 24),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          BackButton(
-            color: const Color(0xFF695876),
-            onPressed: onPressedBackButton,
-          ),
+          // BackButton(
+          //   color: const Color(0xFF695876),
+          //   onPressed: onPressedBackButton,
+          // ),
           textButton != null
               ? (OutlinedButton(
                   onPressed: onPressedMainButton,

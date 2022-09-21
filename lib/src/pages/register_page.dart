@@ -2,15 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/text_input.dart';
 import 'package:linguini/src/components/button.dart';
+import 'package:linguini/api.dart';
 
 class RegisterPage extends StatefulWidget {
-  final String title;
-  const RegisterPage({Key? key, required this.title}) : super(key: key);
+  final String? title;
+  final String? contentUser;
+
+  const RegisterPage({Key? key, this.title, this.contentUser})
+      : super(key: key);
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final formkey = GlobalKey<FormState>();
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +32,10 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Header(
-                  textButton: 'Login',
-                ),
+                Header(
+                    textButton: 'Login',
+                    onPressedMainButton: () =>
+                        Navigator.pushReplacementNamed(context, '/login')),
                 const Padding(
                   padding: EdgeInsets.all(32),
                   child: Text(
@@ -40,21 +51,73 @@ class _RegisterPageState extends State<RegisterPage> {
                 Padding(
                     padding: const EdgeInsets.only(bottom: 32),
                     child: SizedBox(
-                      height: 240,
+                        // height: 240,
+                        child: Form(
+                      key: formkey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          TextInput(text: 'User'),
-                          TextInput(text: 'E-mail'),
+                        children: [
+                          TextInput(
+                            text: 'User',
+                            controller: usernameController,
+                          ),
+                          SizedBox(height: 10),
+                          TextInput(
+                            text: 'E-mail',
+                            controller: emailController,
+                          ),
+                          SizedBox(height: 10),
                           TextInput(text: 'Confirmação de e-mail'),
-                          TextInput(text: 'Senha'),
+                          SizedBox(height: 10),
+                          TextInput(
+                            text: 'Senha',
+                            controller: passwordController,
+                          ),
                         ],
                       ),
-                    )),
-                const StyledButton(text: 'Próximo'),
+                    ))),
+                StyledButton(
+                    text: 'Próximo',
+                    onPressed: () async {
+                      if (formkey.currentState!.validate()) {
+                        Map<String, dynamic> result = await Api.createUser(
+                            usernameController.text,
+                            passwordController.text,
+                            emailController.text);
+                        if ((result['status'] == 400 ||
+                                result['status'] == 401) &&
+                            mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(result['message']),
+                            behavior: SnackBarBehavior.floating,
+                            duration: const Duration(seconds: 1),
+                            margin: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).size.height - 100,
+                                right: 20,
+                                left: 20),
+                            backgroundColor: Colors.red,
+                          ));
+                        } else if (result['status'] == 200 ||
+                            result['status'] == 201 && mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(result['message']),
+                            duration: const Duration(seconds: 1),
+                            behavior: SnackBarBehavior.floating,
+                            margin: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).size.height - 100,
+                                right: 20,
+                                left: 20),
+                            backgroundColor: Colors.green,
+                          ));
+                          Navigator.pushNamed(context, '/register/restriction');
+                        }
+                      }
+                    }),
                 const SizedBox(height: 16),
                 OutlinedButton(
-                  onPressed: null,
+                  onPressed: () => Navigator.pushNamed(context, '/login'),
                   style: OutlinedButton.styleFrom(
                     fixedSize: const Size(246, 48),
                     shape: RoundedRectangleBorder(
