@@ -25,7 +25,7 @@ class RecipeItem extends StatelessWidget {
           Row(
             children: [
               const Image(
-                image: AssetImage('../assets/images/cover.png'),
+                image: AssetImage('assets/images/cover.png'),
                 width: 150,
                 fit: BoxFit.fitWidth,
               ),
@@ -40,6 +40,7 @@ class RecipeItem extends StatelessWidget {
                       style: const TextStyle(
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w500,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
@@ -47,13 +48,15 @@ class RecipeItem extends StatelessWidget {
                       style: const TextStyle(
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w500,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
-                      prep_time,
+                      prep_time + ' min',
                       style: const TextStyle(
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w500,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -65,4 +68,4 @@ class RecipeItem extends StatelessWidget {
       ),
     );
   }
-} 
+}

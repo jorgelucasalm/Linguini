@@ -15,22 +15,23 @@ class SearchPageButton extends StatelessWidget {
           color: Color(0xfff),
           borderRadius: BorderRadius.all(Radius.circular(32))),
       child: Wrap(
-        spacing: 10,
-        crossAxisAlignment: WrapCrossAlignment.center, children: [
-        Text(
-          text, //recebe o texto
-          style: const TextStyle(
-            color: Color(0xff422956),
-            fontSize: 18,
-            fontFamily: "Poppins",
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        IconButton(
-          onPressed: onPressed,
-          icon: const Icon(Icons.close),
-        )
-      ]),
+          spacing: 10,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Text(
+              text, //recebe o texto
+              style: const TextStyle(
+                color: Color(0xff422956),
+                fontSize: 18,
+                fontFamily: "Poppins",
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            IconButton(
+              onPressed: onPressed,
+              icon: const Icon(Icons.close),
+            )
+          ]),
     );
   }
 }

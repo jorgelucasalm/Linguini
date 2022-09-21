@@ -36,6 +36,18 @@ class Api {
     return {'status': response.statusCode, 'message': responseJson['message']};
   }
 
+  static Future<List<dynamic>> listRecipes(List<String> ingredients) async {
+    final response = await http.post(Uri.parse('$baseUrl/data'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, List<String>>{'ingredients': ingredients}));
+
+    List<dynamic> responseJson = jsonDecode(response.body);
+
+    return responseJson;
+  }
+
   static Future<List<String>> getIngredients() async {
     final response = await http.get(
       Uri.parse('$baseUrl/ingredients'),
@@ -45,7 +57,8 @@ class Api {
     );
 
     List<dynamic> responseJson = jsonDecode(response.body);
-    List<String> responseString = responseJson.map((e) => e.toString()).toList();
+    List<String> responseString =
+        responseJson.map((e) => e.toString()).toList();
 
     return responseString;
   }

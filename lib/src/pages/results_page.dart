@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linguini/api.dart';
 import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/ingredient.dart';
 import 'package:linguini/src/components/recipes.dart';
@@ -15,11 +16,16 @@ class _ResultsPageState extends State<ResultsPage> {
   get text => null;
   IconData? get search => null;
   List<String> ingredients = [];
+  List<dynamic> recipes = [];
 
   @override
   void initState() {
     super.initState();
     ingredients = widget.ingredients!;
+    () async {
+      recipes = await Api.listRecipes(ingredients);
+      print(recipes[0]);
+    }();
   }
 
   @override
@@ -61,13 +67,11 @@ class _ResultsPageState extends State<ResultsPage> {
                                 alignment: WrapAlignment.start,
                                 spacing: 8,
                                 runSpacing: 10,
-                                children: const [
-                                  IngredientButton(text: 'Ovo'),
-                                  IngredientButton(text: 'Alho Poró'),
-                                  IngredientButton(text: 'Uva galática'),
-                                  IngredientButton(text: 'Alho Poró'),
-                                  IngredientButton(text: 'Uva galática'),
-                                ],
+                                children: ingredients
+                                    .map(
+                                      (item) => IngredientButton(text: item),
+                                    )
+                                    .toList(),
                               )),
                         ),
                         const Text(
@@ -80,27 +84,33 @@ class _ResultsPageState extends State<ResultsPage> {
                             height: 4,
                           ),
                         ),
-                        Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text(
-                                  ingredients[0],
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
+                        ListView.builder(
+                          itemCount: recipes.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => Card(
+                            clipBehavior: Clip.antiAlias,
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    recipes[index]['recipe_title'].toString(),
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: RecipeItem(
-                                    cousine: 'Tailandesa',
-                                    diet: 'Vegana',
-                                    prep_time: "15 min",
-                                  ))
-                            ],
+                                Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: RecipeItem(
+                                      cousine:
+                                          recipes[index]['cuisine'].toString(),
+                                      diet: recipes[index]['diet'].toString(),
+                                      prep_time: recipes[index]['prep_time']
+                                          .toString(),
+                                    ))
+                              ],
+                            ),
                           ),
                         ),
                       ]),

@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Linguini',
       routes: {
-        '/': (context) => const Home(),
+        // '/': (context) => const Home(),
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/register/restriction': (context) => const RestrictionPage(),
-        '/search': (context) => const SearchPage(),
+        '/': (context) => const SearchPage(),
         '/results': (context) => const ResultsPage(),
       },
     );
