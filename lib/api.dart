@@ -12,7 +12,8 @@ class Api {
     print(response);
   }
 
-  static Future<Map<String, dynamic>> login(String username, String password) async {
+  static Future<Map<String, dynamic>> login(
+      String username, String password) async {
     final response = await http.post(Uri.parse('$baseUrl/user/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -21,8 +22,21 @@ class Api {
             <String, String>{'username': username, 'password': password}));
 
     Map<String, dynamic> responseJson = jsonDecode(response.body);
-    
-    return { 'status': response.statusCode, 'message': responseJson['message']};
 
+    return {'status': response.statusCode, 'message': responseJson['message']};
+  }
+
+  static Future<List<String>> getIngredients() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/ingredients'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    List<dynamic> responseJson = jsonDecode(response.body);
+    List<String> responseString = responseJson.map((e) => e.toString()).toList();
+
+    return responseString;
   }
 }

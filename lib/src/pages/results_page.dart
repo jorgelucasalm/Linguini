@@ -4,8 +4,9 @@ import 'package:linguini/src/components/ingredient.dart';
 import 'package:linguini/src/components/recipes.dart';
 
 class ResultsPage extends StatefulWidget {
-  final String title;
-  const ResultsPage({Key? key, required this.title}) : super(key: key);
+  final List<String>? ingredients;
+  const ResultsPage({Key? key, this.ingredients}) : super(key: key);
+
   @override
   State<ResultsPage> createState() => _ResultsPageState();
 }
@@ -13,6 +14,13 @@ class ResultsPage extends StatefulWidget {
 class _ResultsPageState extends State<ResultsPage> {
   get text => null;
   IconData? get search => null;
+  List<String> ingredients = [];
+
+  @override
+  void initState() {
+    super.initState();
+    ingredients = widget.ingredients!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +84,9 @@ class _ResultsPageState extends State<ResultsPage> {
                           clipBehavior: Clip.antiAlias,
                           child: Column(
                             children: [
-                              const ListTile(
+                              ListTile(
                                 title: Text(
-                                  'Receita X',
+                                  ingredients[0],
                                   style: TextStyle(
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
@@ -86,13 +94,12 @@ class _ResultsPageState extends State<ResultsPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: RecipeItem(
-                                  cousine: 'Tailandesa',
-                                  diet: 'Vegana',
-                                  prep_time: "15 min",
-                                )
-                              )
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: RecipeItem(
+                                    cousine: 'Tailandesa',
+                                    diet: 'Vegana',
+                                    prep_time: "15 min",
+                                  ))
                             ],
                           ),
                         ),

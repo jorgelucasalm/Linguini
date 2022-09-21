@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/button.dart';
+import 'package:linguini/src/components/search_page_button.dart';
 
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:linguini/src/pages/data.dart';
+import 'package:linguini/src/pages/results_page.dart';
+import 'package:linguini/api.dart';
 
 class SearchPage extends StatefulWidget {
   final String? title;
@@ -15,6 +18,17 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   get text => null;
   IconData? get search => null;
+  List<String> ingredients = [];
+  List<String> selectedIngredients = [];
+  final inputController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    () async {
+      ingredients = await Api.getIngredients();
+    }();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +72,6 @@ class _SearchPageState extends State<SearchPage> {
                           child: Text('No Item Found'),
                         ),
                       ),
-
                       suggestionsBoxDecoration: const SuggestionsBoxDecoration(
                           color: Colors.white,
                           elevation: 4.0,
@@ -66,9 +79,9 @@ class _SearchPageState extends State<SearchPage> {
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10),
                           )),
-
                       debounceDuration: const Duration(milliseconds: 400),
                       textFieldConfiguration: TextFieldConfiguration(
+                          controller: inputController,
                           decoration: InputDecoration(
                               focusedBorder: const OutlineInputBorder(
                                 borderRadius:
@@ -94,16 +107,24 @@ class _SearchPageState extends State<SearchPage> {
                               hintStyle: const TextStyle(
                                   color: Color(0xFF695876), fontSize: 14),
                               suffixIcon: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    selectedIngredients = [
+                                      ...selectedIngredients,
+                                      inputController.text
+                                    ];
+                                  });
+                                  inputController.text = '';
+                                },
                                 icon: const Icon(
-                                  Icons.search,
+                                  Icons.add,
                                   color: Color(0xFF695876),
                                 ),
                               ),
                               fillColor: Colors.white,
                               filled: true)),
                       suggestionsCallback: (value) {
-                        return StateService.getSuggestions(value);
+                        return StateService.getSuggestions(value, ingredients);
                       },
                       itemBuilder: (context, String suggestion) {
                         return Row(
@@ -123,12 +144,42 @@ class _SearchPageState extends State<SearchPage> {
                           ],
                         );
                       },
-                      onSuggestionSelected:
-                          (String suggestion) {}, //construir função
+                      onSuggestionSelected: (String suggestion) {
+                        inputController.text = suggestion;
+                      },
                     )),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: selectedIngredients.length,
+                  itemBuilder: ((context, index) {
+                    return ListTile(
+                      title: SearchPageButton(
+                        text: selectedIngredients[index],
+                        onPressed: () {
+                          setState(() {
+                            selectedIngredients
+                                .remove(selectedIngredients[index]);
+                          });
+                        },
+                      ),
+                    );
+                  }),
+                ),
 
-                const SizedBox(height: 200),
-                const StyledButton(text: 'Buscar'),
+                const SizedBox(height: 20),
+                StyledButton(
+                  text: 'Buscar',
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ResultsPage(
+                            ingredients: selectedIngredients,
+                          ),
+                        ));
+                  },
+                ),
                 const SizedBox(height: 16),
               ],
             ),
