@@ -4,11 +4,13 @@ class Header extends StatelessWidget {
   final void Function()? onPressedBackButton;
   final String? textButton;
   final void Function()? onPressedMainButton;
+  final bool? backButton;
 
   const Header(
       {Key? key,
       this.textButton,
       this.onPressedBackButton,
+      this.backButton,
       this.onPressedMainButton})
       : super(key: key);
 
@@ -17,12 +19,15 @@ class Header extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 24),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: backButton != null
+            ? MainAxisAlignment.start
+            : MainAxisAlignment.end,
         children: [
-          // BackButton(
-          //   color: const Color(0xFF695876),
-          //   onPressed: onPressedBackButton,
-          // ),
+          if (backButton != null)
+            BackButton(
+              color: const Color(0xFF695876),
+              onPressed: onPressedBackButton,
+            ),
           textButton != null
               ? (OutlinedButton(
                   onPressed: onPressedMainButton,

@@ -18,7 +18,6 @@ class Api {
         }));
 
     Map<String, dynamic> responseJson = jsonDecode(response.body);
-    final teste = response.statusCode;
     return {'status': response.statusCode, 'message': responseJson['message']};
   }
 
@@ -45,6 +44,19 @@ class Api {
 
     List<dynamic> responseJson = jsonDecode(response.body);
 
+    return responseJson;
+  }
+
+  static Future<dynamic> getRecipe(int id) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/data/' + id.toString()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    Object responseJson = jsonDecode(response.body);
+    print(response.body);
     return responseJson;
   }
 

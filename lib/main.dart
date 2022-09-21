@@ -25,8 +25,7 @@ class MyApp extends StatelessWidget {
         '/register/restriction': (context) => const RestrictionPage(),
         '/search': (context) => const SearchPage(),
         '/results': (context) => const ResultsPage(),
-        '/recipe': (context) =>
-            const VisualizationRecipe(title: 'Flutter Demo Home Page'),
+        '/recipe': (context) => const VisualizationRecipe(),
       },
     );
   }

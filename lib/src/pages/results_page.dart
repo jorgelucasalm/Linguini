@@ -6,6 +6,8 @@ import 'package:linguini/api.dart';
 import 'package:linguini/src/components/header.dart';
 import 'package:linguini/src/components/ingredient.dart';
 import 'package:linguini/src/components/recipes.dart';
+import 'package:linguini/src/pages/search_page.dart';
+import 'package:linguini/src/pages/visualization_recipe.dart';
 
 class ResultsPage extends StatefulWidget {
   final List<String>? ingredients;
@@ -21,7 +23,7 @@ class _ResultsPageState extends State<ResultsPage> {
   List<String> ingredients = [];
   List<dynamic> recipes = [];
   late Timer _timer;
-  int _counter = 10;
+  int _counter = 7;
 
   @override
   void initState() {
@@ -60,7 +62,12 @@ class _ResultsPageState extends State<ResultsPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Header(),
+                Header(
+                  backButton: true,
+                  onPressedBackButton: () {
+                    Navigator.pop(context);
+                  },
+                ),
                 Container(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                   alignment: Alignment.topLeft,
@@ -111,7 +118,14 @@ class _ResultsPageState extends State<ResultsPage> {
                               shrinkWrap: true,
                               itemBuilder: (context, index) => InkWell(
                                     onTap: () {
-                                      print(recipes[index]['id']);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                VisualizationRecipe(
+                                              recipe: recipes[index]['id'],
+                                            ),
+                                          ));
                                     },
                                     child: Card(
                                       clipBehavior: Clip.antiAlias,
