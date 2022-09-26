@@ -1,6 +1,4 @@
-# linguini
-
-A new Flutter project.
+# Linguini: um novo jeito de cozinhar
 
 ## Entregas
 
