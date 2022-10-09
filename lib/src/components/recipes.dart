@@ -4,7 +4,9 @@ class RecipeItem extends StatelessWidget {
   final String cousine;
   final String diet;
   // ignore: non_constant_identifier_names
+  final String? image;
   final String prep_time;
+  final bool get = true;
 
   final void Function()? onPressed;
 
@@ -14,6 +16,7 @@ class RecipeItem extends StatelessWidget {
       required this.diet,
       // ignore: non_constant_identifier_names
       required this.prep_time,
+      required this.image,
       this.onPressed})
       : super(key: key);
 
@@ -24,11 +27,31 @@ class RecipeItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Image(
-                image: AssetImage('assets/images/cover.png'),
-                width: 150,
-                fit: BoxFit.fitWidth,
-              ),
+              image == null
+                  ? const Image(
+                      image: AssetImage('assets/images/cover.png'),
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.fitWidth,
+                    )
+                  : (() {
+                      try {
+                        final img = Image.network(
+                          image!,
+                          fit: BoxFit.fitWidth,
+                          width: 150,
+                          height: 150,
+                        );
+                        return img;
+                      } catch (e) {
+                        return const Image(
+                          image: AssetImage('assets/images/cover.png'),
+                          width: 150,
+                          height: 150,
+                          fit: BoxFit.fitWidth,
+                        );
+                      }
+                    })(),
               Flexible(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),

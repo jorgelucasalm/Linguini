@@ -23,6 +23,7 @@ class _VisualizationRecipeState extends State<VisualizationRecipe> {
   late Timer _timer;
   int _counter = 7;
   List<String> ingredients = [];
+  List<String> instructions = [];
 
   @override
   void initState() {
@@ -37,16 +38,20 @@ class _VisualizationRecipeState extends State<VisualizationRecipe> {
       });
     });
 
-    id = widget.recipe!;
-
     () async {
+      id = widget.recipe!;
       recipeGetted = await Api.getRecipe(id);
+      if (recipeGetted['ingredients'] != null) {
+        ingredients = recipeGetted['ingredients'].split(" | ");
+      }
+      if (recipeGetted['instructions'] != null) {
+        List<String> list = recipeGetted['instructions'].split(".");
+        instructions = list
+            .map((e) => e.trim())
+            .toList()
+            .where((element) => element.isNotEmpty).toList();
+      }
     }();
-    print(recipeGetted);
-    if (recipeGetted['ingredients'] != null)
-      ingredients = recipeGetted['ingredients'].split(" | ");
-    print(ingredients);
-    print(recipeGetted['ingredients']);
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
       if (_counter == 0) {
@@ -73,10 +78,26 @@ class _VisualizationRecipeState extends State<VisualizationRecipe> {
                   ),
                   Row(
                     children: [
-                      Image.asset(
-                        "assets/images/cover.png",
-                        width: 150,
-                      ),
+                      recipeGetted['image'] == null
+                          ? const Text('')
+                          : (() {
+                              try {
+                                final img = Image.network(
+                                  recipeGetted['image']!,
+                                  fit: BoxFit.fitWidth,
+                                  width: 150,
+                                  height: 150,
+                                );
+                                return img;
+                              } catch (e) {
+                                return const Image(
+                                  image: AssetImage('assets/images/cover.png'),
+                                  width: 150,
+                                  height: 150,
+                                  fit: BoxFit.fitWidth,
+                                );
+                              }
+                            })(),
                       const SizedBox(
                         width: 16,
                       ),
@@ -129,20 +150,19 @@ class _VisualizationRecipeState extends State<VisualizationRecipe> {
                       height: 3,
                     ),
                   ),
-                  // if (_counter < 1)
-                  //   ListView.builder(
-                  //       itemCount: ingredients.length,
-                  //       shrinkWrap: true,
-                  //       itemBuilder: (context, index) {
-                  //         print(ingredients[index]);
-                  //         return Item(text: ingredients[index]);
-                  //       }),
-                  Item(text: 'Sabudana (pérolas de tapioca)'),
-                  Item(text: 'chalota'),
-                  Item(text: 'verduras misturadas'),
-                  Item(text: 'pimenta preta em pó'),
-                  Item(text: 'alho'),
-                  Item(text: 'óleo'),
+                  if (ingredients.isNotEmpty)
+                    ListView.builder(
+                        itemCount: ingredients.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Item(text: ingredients[index]);
+                        }),
+                  // Item(text: 'Sabudana (pérolas de tapioca)'),
+                  // Item(text: 'chalota'),
+                  // Item(text: 'verduras misturadas'),
+                  // Item(text: 'pimenta preta em pó'),
+                  // Item(text: 'alho'),
+                  // Item(text: 'óleo'),
                   const Divider(),
                   const Text(
                     'Passo a passo',
@@ -154,36 +174,43 @@ class _VisualizationRecipeState extends State<VisualizationRecipe> {
                       height: 3,
                     ),
                   ),
-                  const Item(
-                      text:
-                          'Para começar a fazer a receita de bolinho de sagu vegetariano, primeiro mergulhe as pérolas de sagu/tapioca em 1/2 xícara de água quente até que o sagu fique translúcido.'),
-                  const Item(
-                      text:
-                          'Lembre-se de não encharcar demais as pérolas, senão a massa fica encharcada.'),
-                  const Item(
-                      text:
-                          'Pique o alho, as folhas de coentro. Você também pode tirar algumas raízes de coentro.'),
-                  const Item(
-                      text:
-                          'Adicione a cebola picada e misture.Coloque um  Kadai/wok em fogo médio e aqueça o óleo.'),
-                  const Item(
-                      text:
-                          'Adicione a mistura picada, refogue até a cebola ficar translúcida e macia. '),
-                  const Item(
-                      text:
-                          'Quando a cebola estiver macia, adicione o repolho picado, a cenoura e o feijão. '),
-                  const Item(
-                      text:
-                          'Mexa bem para combinar. Em seguida, adicione o molho de soja e a pimenta em pó.'),
-                  const Item(
-                      text:
-                          'Refogue até que todos os ingredientes estejam bem combinados. Desligue o fogo. '),
-                  const Item(
-                      text:
-                          'Reserve e deixe o recheio esfriar completamente. Enquanto isso, pegue todo o sagu embebido em uma tigela depois de escorrer a água, molhe bem as mãos, amasse por 2 a 3 minutos até ficar bem maleável. Molhe as mãos e pegue uma pequena quantidade de massa, achate e faça uma forma de disco de cerca de 6 cm. '),
-                  const Item(
-                      text:
-                          'Decore com coentro fresco e sirva quente. Sirva a Receita de Bolinho de Sagu Vegetariano à noite, junto com azeite de alho e molho de soja para o lanche ou como acompanhamento  para fazer uma refeição'),
+                  if (instructions.isNotEmpty)
+                    ListView.builder(
+                        itemCount: instructions.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Item(text: instructions[index]);
+                        }),
+                  // const Item(
+                  //     text:
+                  //         'Para começar a fazer a receita de bolinho de sagu vegetariano, primeiro mergulhe as pérolas de sagu/tapioca em 1/2 xícara de água quente até que o sagu fique translúcido.'),
+                  // const Item(
+                  //     text:
+                  //         'Lembre-se de não encharcar demais as pérolas, senão a massa fica encharcada.'),
+                  // const Item(
+                  //     text:
+                  //         'Pique o alho, as folhas de coentro. Você também pode tirar algumas raízes de coentro.'),
+                  // const Item(
+                  //     text:
+                  //         'Adicione a cebola picada e misture.Coloque um  Kadai/wok em fogo médio e aqueça o óleo.'),
+                  // const Item(
+                  //     text:
+                  //         'Adicione a mistura picada, refogue até a cebola ficar translúcida e macia. '),
+                  // const Item(
+                  //     text:
+                  //         'Quando a cebola estiver macia, adicione o repolho picado, a cenoura e o feijão. '),
+                  // const Item(
+                  //     text:
+                  //         'Mexa bem para combinar. Em seguida, adicione o molho de soja e a pimenta em pó.'),
+                  // const Item(
+                  //     text:
+                  //         'Refogue até que todos os ingredientes estejam bem combinados. Desligue o fogo. '),
+                  // const Item(
+                  //     text:
+                  //         'Reserve e deixe o recheio esfriar completamente. Enquanto isso, pegue todo o sagu embebido em uma tigela depois de escorrer a água, molhe bem as mãos, amasse por 2 a 3 minutos até ficar bem maleável. Molhe as mãos e pegue uma pequena quantidade de massa, achate e faça uma forma de disco de cerca de 6 cm. '),
+                  // const Item(
+                  //     text:
+                  //         'Decore com coentro fresco e sirva quente. Sirva a Receita de Bolinho de Sagu Vegetariano à noite, junto com azeite de alho e molho de soja para o lanche ou como acompanhamento  para fazer uma refeição'),
                 ]),
               )),
         ));
