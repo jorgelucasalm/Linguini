@@ -41,7 +41,6 @@ class _ResultsPageState extends State<ResultsPage> {
 
     () async {
       recipes = await Api.listRecipes(ingredients);
-      print(recipes);
     }();
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -153,6 +152,7 @@ class _ResultsPageState extends State<ResultsPage> {
                                                 prep_time: recipes[index]
                                                         ['prep_time']
                                                     .toString(),
+                                                image: recipes[index]['image'],
                                               ))
                                         ],
                                       ),

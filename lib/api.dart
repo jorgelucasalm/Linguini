@@ -42,12 +42,12 @@ class Api {
         },
         body: jsonEncode(<String, List<String>>{'ingredients': ingredients}));
 
-    List<dynamic> responseJson = jsonDecode(response.body);
+    var responseJson = jsonDecode(response.body);
 
     return responseJson;
   }
 
-  static Future<dynamic> getRecipe(int id) async {
+  static Future<Map<String, dynamic>> getRecipe(int id) async {
     final response = await http.get(
       Uri.parse('$baseUrl/data/' + id.toString()),
       headers: <String, String>{
@@ -55,7 +55,7 @@ class Api {
       },
     );
 
-    Object responseJson = jsonDecode(response.body);
+    Map<String, dynamic> responseJson = jsonDecode(response.body);
     print(response.body);
     return responseJson;
   }
